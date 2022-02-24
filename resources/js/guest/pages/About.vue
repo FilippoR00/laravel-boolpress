@@ -1,5 +1,7 @@
 <template>
-  <h1>Chi siamo:</h1>
+    <div class="container">
+        <h2>Chi siamo:</h2>
+    </div>
 </template>
 
 <script>
