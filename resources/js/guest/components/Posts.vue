@@ -3,7 +3,7 @@
         <h2>Lista post:</h2>
         <ul class="post">
             <li v-for="post in posts" :key="post.id">
-                <router-link class="link" :to="{name: 'single-post', params: {slug: post.slug}} ">
+                <router-link class="link" :to="{name: 'single-post', params: {slug: post.slug, title: post.title}} ">
                     <div class="card">
                         <img :src="post.image ? 'storage/' + post.image : 'https://www.penworthy.com/Image/Getimage?id=C:\Repositories\Common\About%20Us\Slide1.jpg'" :alt="post.title + ' image'">
                         <h3>{{post.title}}</h3>

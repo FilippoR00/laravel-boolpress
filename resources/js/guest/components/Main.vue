@@ -7,7 +7,9 @@
 <script>
 export default {
     name: "Main",
-    
+    // mounted() {
+    //     document.title = this.$route.meta.title;
+    // },
 }
 </script>
 

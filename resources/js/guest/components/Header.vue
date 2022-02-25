@@ -4,11 +4,13 @@
             <div class="left">
                 <router-link class="logo" :to="{name: 'home'}">Boolpress</router-link>
                 <ul>
+                    <li><router-link :to="{name: 'home'}">Home</router-link></li>
                     <li><router-link :to="{name: 'about'}">Chi siamo</router-link></li>
+                    <li><router-link :to="{name: 'categories'}">Categorie</router-link></li>
                 </ul>
             </div>
             <div class="right">
-                <a href="admin/home">Area riservata</a>
+                <a href="/admin/home">Area riservata</a>
             </div>
         </div>
     </header>
@@ -44,18 +46,31 @@ export default {
                 }
                 ul{
                     margin-left: 30px;
+                    display: flex;
                     li{
                         list-style: none;
                         a{
                             color: white;
                             text-decoration: none;
                             padding: 10px 20px;
+                            transition: 0.3s all;
+                            border: 1px solid #4d4dff;
+                        }
+                        a:hover{
+                            background-color: #4d4dff;
                         }
                         .router-link-exact-active{
-                            border-radius: 15px;
                             background-color: #5e5eff;
                         }
                     }
+                            li:first-child a{
+                                border-start-start-radius: 20px;
+                                border-end-start-radius: 20px;
+                            }
+                            li:last-child a{
+                                border-start-end-radius: 20px;
+                                border-end-end-radius: 20px;
+                            }
                 }
             }
             .right{

@@ -2,10 +2,7 @@
     <footer>
         <div class="container">
             <router-link :to="{name: 'about'}">Chi siamo</router-link>
-            <a href="#">footer links</a>
-            <a href="#">footer links</a>
-            <a href="#">footer links</a>
-            <a href="#">footer links</a>
+            <router-link :to="{name: 'categories'}">Categorie</router-link>
         </div>
     </footer>
 </template>
