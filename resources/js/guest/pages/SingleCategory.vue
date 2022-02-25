@@ -3,7 +3,7 @@
         <h2>{{category.name}}</h2>
         <h3>Lista post associati:</h3>
         <ul v-if="category.post && category.post.length">
-            <li v-for="post in category.post" :key="post.id"><router-link :to="{name: 'single-post', params: {slug: post.slug}}">{{post.title}}</router-link></li>
+            <li v-for="post in category.post" :key="post.id"><router-link :to="{name: 'single-post', params: {slug: post.slug, title: post.title}}">{{post.title}}</router-link></li>
         </ul>
         <p v-else>Non sono presenti post associati a questa categoria.</p>
     </div>

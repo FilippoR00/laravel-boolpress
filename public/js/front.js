@@ -4125,7 +4125,7 @@ var render = function () {
                 attrs: {
                   to: {
                     name: "single-category",
-                    params: { slug: category.slug },
+                    params: { slug: category.slug, title: category.name },
                   },
                 },
               },
@@ -4239,7 +4239,10 @@ var render = function () {
                   "router-link",
                   {
                     attrs: {
-                      to: { name: "single-post", params: { slug: post.slug } },
+                      to: {
+                        name: "single-post",
+                        params: { slug: post.slug, title: post.title },
+                      },
                     },
                   },
                   [_vm._v(_vm._s(post.title))]
