@@ -2254,22 +2254,80 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SinglePost",
   data: function data() {
     return {
-      post: []
+      post: [],
+      comments: [],
+      formData: {
+        name: '',
+        content: '',
+        post_id: null
+      },
+      commentSent: false,
+      formErrors: []
     };
   },
+  methods: {
+    addComment: function addComment() {
+      var _this = this;
+
+      axios.post("/api/comments", this.formData).then(function (response) {
+        _this.formData.name = "";
+        _this.formData.content = "";
+        _this.commentSent = true;
+      })["catch"](function (error) {
+        _this.formErrors = error.response.data.errors;
+      });
+    }
+  },
   created: function created() {
-    var _this = this;
+    var _this2 = this;
 
     axios.get("/api/posts/".concat(this.$route.params.slug)).then(function (response) {
-      _this.post = response.data;
+      _this2.post = response.data;
+      _this2.formData.post_id = _this2.post.id;
     })["catch"](function (error) {
-      _this.$router.push({
+      _this2.$router.push({
         name: 'page-404'
       });
+    });
+    axios.get("/api/comments").then(function (response) {
+      _this2.comments = response.data;
     });
   }
 });
@@ -2440,7 +2498,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "h2[data-v-57a632a8] {\n  margin: 50px 25px;\n}", ""]);
+exports.push([module.i, "h2[data-v-57a632a8] {\n  margin: 50px 25px;\n}\nh3[data-v-57a632a8] {\n  margin: 20px 0px;\n}\nform[data-v-57a632a8] {\n  background-color: #ddd;\n  width: 100%;\n}\nform input[data-v-57a632a8] {\n  width: calc(100% - 20px);\n  margin: 10px;\n  border: 1px solid black;\n  border-radius: 5px;\n  padding: 10px 20px;\n  font-size: 18px;\n}\nform textarea[data-v-57a632a8] {\n  width: calc(100% - 20px);\n  margin: 10px;\n  border: 1px solid black;\n  border-radius: 5px;\n  padding: 10px 20px;\n  font-size: 18px;\n}\nform button[data-v-57a632a8] {\n  width: 100px;\n  padding: 10px 20px;\n  font-size: 18px;\n  margin: 10px;\n  color: white;\n  background-color: #3535ec;\n  transition: 0.2s all;\n  border: 3px solid #3535ec;\n  border-radius: 5px;\n  cursor: pointer;\n}\nform button[data-v-57a632a8]:hover {\n  background-color: #5e5eff;\n}\nform .error[data-v-57a632a8] {\n  background-color: #f2645c;\n  padding: 10px;\n  margin: 5px 10px;\n  border-radius: 10px;\n  color: white;\n  list-style: none;\n}\n.approvation[data-v-57a632a8] {\n  background-color: #5e5eff;\n  padding: 10px;\n  color: white;\n}\n.comment[data-v-57a632a8] {\n  background-color: #ddd;\n  width: 400px;\n  margin: 20px;\n  padding: 20px;\n  border-radius: 25px;\n}\n.comment .name[data-v-57a632a8] {\n  font-weight: 600;\n  margin-bottom: 10px;\n}", ""]);
 
 // exports
 
@@ -4319,9 +4377,161 @@ var render = function () {
           ),
         ])
       : _vm._e(),
+    _vm._v(" "),
+    _c("h3", [_vm._v("Inserisci commento:")]),
+    _vm._v(" "),
+    _c(
+      "form",
+      {
+        on: {
+          submit: function ($event) {
+            $event.preventDefault()
+            return _vm.addComment.apply(null, arguments)
+          },
+        },
+      },
+      [
+        _c("div", [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.formData.name,
+                expression: "formData.name",
+              },
+            ],
+            attrs: {
+              type: "text",
+              id: "name",
+              placeholder: "Inserisici il nome",
+            },
+            domProps: { value: _vm.formData.name },
+            on: {
+              input: function ($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.formData, "name", $event.target.value)
+              },
+            },
+          }),
+        ]),
+        _vm._v(" "),
+        _c("div", [
+          _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.formData.content,
+                expression: "formData.content",
+              },
+            ],
+            attrs: {
+              name: "content",
+              id: "content",
+              cols: "30",
+              rows: "8",
+              placeholder: "Inserisci il commento",
+            },
+            domProps: { value: _vm.formData.content },
+            on: {
+              input: function ($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.formData, "content", $event.target.value)
+              },
+            },
+          }),
+          _vm._v(" "),
+          _vm.formErrors.content
+            ? _c("div", [
+                _c(
+                  "ul",
+                  _vm._l(_vm.formErrors.content, function (error, index) {
+                    return _c("li", { key: index, staticClass: "error" }, [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(error) +
+                          "\n                    "
+                      ),
+                    ])
+                  }),
+                  0
+                ),
+              ])
+            : _vm._e(),
+        ]),
+        _vm._v(" "),
+        _vm._m(0),
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.commentSent,
+            expression: "commentSent",
+          },
+        ],
+        staticClass: "approvation",
+      },
+      [_vm._v("\n        Commento in fase di approvazione...\n    ")]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.comments.length > 0,
+            expression: "comments.length > 0",
+          },
+        ],
+      },
+      [
+        _c("h3", [_vm._v("Commenti:")]),
+        _vm._v(" "),
+        _vm._l(_vm.comments, function (comment) {
+          return _c("div", { key: comment.id, staticClass: "comment" }, [
+            _c("div", { staticClass: "name" }, [
+              _vm._v(
+                "\n                " + _vm._s(comment.name) + "\n            "
+              ),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "content" }, [
+              _vm._v(
+                "\n                " +
+                  _vm._s(comment.content) +
+                  "\n            "
+              ),
+            ]),
+          ])
+        }),
+      ],
+      2
+    ),
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("button", { attrs: { type: "submit" } }, [_vm._v("Invia")]),
+    ])
+  },
+]
 render._withStripped = true
 
 
@@ -20154,7 +20364,13 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     meta: {
       title: 'Error 404'
     }
-  }]
+  }],
+  scrollBehavior: function scrollBehavior() {
+    return {
+      x: 0,
+      y: 0
+    };
+  }
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);
 
