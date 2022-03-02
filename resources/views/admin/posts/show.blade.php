@@ -48,6 +48,47 @@
                         <div class="my-3">
                             {{$post->content}}
                         </div>
+                        @if (count($post->comments) > 0)
+                        <div>
+                            <h2>Commenti in attesa di approvazione:</h2>
+                            <table class="w-100">
+                                <thead>
+                                    <th class="col-2">Nome</th>
+                                    <th class="col-6">Contenuto</th>
+                                    <th class="col-4">Azioni</th>
+                                </thead>
+                                <tbody>
+                                    @foreach ($post->comments as $comment)
+                                        <tr>
+                                            <td class="col-2">{{$comment->name}}</td>
+                                            <td class="col-6">{{$comment->content}}</td>
+                                            <td class="col-4">
+                                                <div class="col-4 float-left p-0">
+                                                    @if (!$comment->approved)
+                                                    <form action="{{route('comments.update', $comment->id)}}" method="POST">
+                                                        @csrf
+                                                        @method("PATCH")
+                                                        <input type="hidden" name="approved" value="1">
+                                                        <button type="submit" class="btn btn-success">Approva</button>
+                                                    </form>
+                                                    @else
+                                                    <button type="button" class="btn btn-success" disabled>Approvato</button>
+                                                    @endif
+                                                </div>
+                                                <div class="col-8 float-left p-0">
+                                                    <form action="{{route('comments.destroy', $comment->id)}}" method="POST">
+                                                        @csrf
+                                                        @method("DELETE")
+                                                        <button type="submit" class="btn btn-danger">Elimina</button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

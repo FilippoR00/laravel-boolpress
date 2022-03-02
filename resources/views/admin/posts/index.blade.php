@@ -19,6 +19,7 @@
                                 <th scope="col">Stato</th>
                                 <th scope="col">Categoria</th>
                                 <th scope="col">Azioni</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -51,6 +52,15 @@
                                             @method("DELETE")
                                             <button type="submit" class="btn btn-danger">Elimina</button>
                                         </form>
+                                    </td>
+                                    <td>
+                                        @php
+                                            $tot_coments = $post->comments->filter(function($value) 
+                                            { 
+                                                return $value->approved == 0;
+                                            });
+                                        @endphp
+                                        {{count($tot_coments)}}
                                     </td>
                                 </tr>
                             @endforeach
